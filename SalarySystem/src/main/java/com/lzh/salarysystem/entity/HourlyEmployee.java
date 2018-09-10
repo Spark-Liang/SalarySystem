@@ -20,6 +20,14 @@ public class HourlyEmployee extends Employee {
 	
 	public static final BigDecimal MIN_HOURLY_RATE = new BigDecimal(0);
 
+	public HourlyEmployee() {}
+	
+	public HourlyEmployee(Integer empID) {
+		super(empID);
+	}
+	
+	//******************************* getter and setter start ***************************************//
+	
 	public BigDecimal getHourlyRate() {
 		return hourlyRate;
 	}
@@ -28,4 +36,5 @@ public class HourlyEmployee extends Employee {
 		this.hourlyRate = hourlyRate;
 	}
 	
+	//******************************* getter and setter end ***************************************//
 }

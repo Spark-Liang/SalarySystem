@@ -2,37 +2,60 @@ Case 1 : add employee
 
 base validation of the employee
 
-	can add employee
+	√can add employee
 
-	throw name is null when its name is null
+	√throw name is null when its name is null
 
-	throw name is to long when the length of its name is larger than 32
+	√throw name is to long when the length of its name is larger than 32
 
-	throw address is null when its name is null
+	√throw address is null when its name is null
 
-	throw address is to long when the length of its name is larger than 1024
+	√throw address is to long when the length of its name is larger than 1024
 	
 validate hourlyEmployee
 	
-	hourlyRate is not a positive number when hourlyRate is minus
+	√hourlyRate is not a positive number when hourlyRate is minus
 	
-	hourlyRate is not a positive number when hourlyRate is zero
+	√hourlyRate is not a positive number when hourlyRate is zero
 	
 validate MonthlyEmployee
 	
-	monthlySalary is not a positive number when monthlySalary is minus
+	√monthlySalary is not a positive number when monthlySalary is minus
 	
-	monthlySalary is not a positive number when monthlySalary is zero
+	√monthlySalary is not a positive number when monthlySalary is zero
 	
 validate SaleEmployee
 	
-	commissionRate is not a positive number when commissionRate is minus
+	√commissionRate is not a positive number when commissionRate is minus
 	
-	commissionRate is not a positive number when commissionRate is zero
+	√commissionRate is not a positive number when commissionRate is zero
 	
 	
 	
 validatorHelper
-	purpose: to get the needed validator 
+	√purpose: to get the needed validator 
+	
+	
+Case 2 : DelEmp
+	can delete when the employee can be found
+	
+	throw EmployeeCantNotFoundByID when can not find employee by id 
+	
+
+Case 3 : record TimeCard
+WorkRecordService.logWorkStart(empID):
+
+	can log work start when given the right empID
+
+	should throw EmployeeCantNotFoundByID when cant find employee by id
+	
+	should throw NotAnHourlyEmloyee when the given ID is related to HourlyEmployee
+	
+	should throw EmloyeeHasBeenWorking when a working employee try to log start
+	
+	
+	
+	
+	
 	
 	

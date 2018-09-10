@@ -32,6 +32,13 @@ public class Employee {
 	@Column(length = MAX_ADDRESS_LENGTH,nullable = false)
 	private String address;
 
+	public Employee() {}
+
+	public Employee(Integer empID) {
+		this.empID = empID;
+	}
+	
+	//******************************* getter and setter start ***************************************// 
 	public Integer getEmpID() {
 		return empID;
 	}
@@ -52,5 +59,5 @@ public class Employee {
 		this.address = address;
 	}
 	
-	
+	//******************************* getter and setter end ***************************************//
 }

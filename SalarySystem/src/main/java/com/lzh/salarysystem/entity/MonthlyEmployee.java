@@ -3,7 +3,6 @@ package com.lzh.salarysystem.entity;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -20,6 +19,14 @@ public class MonthlyEmployee extends Employee{
 	
 	public static final BigDecimal MIN_MONTH_SALARY = new BigDecimal(0);
 	
+	public MonthlyEmployee() {}
+
+	public MonthlyEmployee(Integer empID) {
+		super(empID);
+	}
+	
+	//******************************* getter and setter start ***************************************//
+	
 	public BigDecimal getMonthlySalary() {
 		return monthlySalary;
 	}
@@ -27,4 +34,5 @@ public class MonthlyEmployee extends Employee{
 		this.monthlySalary = monthlySalary;
 	}
 
+	//******************************* getter and setter end ***************************************//
 }

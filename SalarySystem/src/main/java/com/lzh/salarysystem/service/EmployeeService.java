@@ -6,4 +6,5 @@ public interface EmployeeService {
 
 	void add(Employee employee);
 
+	void delete(Integer empID);
 }
