@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+	
+	<!-- TestGetMultiTypeEmployee.TestGetMultiTypeEmployee -->
+    <Employee
+    	name = "Test_1" address = "Test_address" employeeType = "Base"
+    />
+    <Employee
+    	name = "Test_2" address = "Test_address" employeeType = "Hourly" hourlyRate = "0.1"
+    />
+    <Employee
+    	name = "Test_3" address = "Test_address" employeeType = "Monthly" monthlySalary = "7000.00"
+    />
+    <Employee
+    	name = "Test_4" address = "Test_address" employeeType = "Sale" monthlySalary = "6000.00" commissionRate = "0.1"
+    />
+    <!-- <Employee
+    	empID = "1" name = "Test_1" address = "Test_address" employeeType = "Base"
+    />
+    <Employee
+    	empID = "2" name = "Test_2" address = "Test_address" employeeType = "Hourly" hourlyRate = "0.1"
+    />
+    <Employee
+    	empID = "3" name = "Test_3" address = "Test_address" employeeType = "Monthly" monthlySalary = "7000.00"
+    />
+    <Employee
+    	empID = "4" name = "Test_4" address = "Test_address" employeeType = "Sale" monthlySalary = "6000.00" commissionRate = "0.1"
+    /> -->
+    <!-- TestGetMultiTypeEmployee.TestGetMultiTypeEmployee -->
+</dataset>
