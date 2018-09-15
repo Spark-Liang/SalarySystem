@@ -1,16 +1,14 @@
 package com.lzh.salarysystem.repository;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
-
-import javax.transaction.Transactional;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.lzh.salarysystem.SalarySystemITBaseTest;
 import com.lzh.salarysystem.entity.Employee;
 import com.lzh.salarysystem.entity.HourlyEmployee;
@@ -24,7 +22,7 @@ public class EmployeeRepositoryITTest extends SalarySystemITBaseTest{
 	private EmployeeRepository employeeRepository;
 	
 	@Test
-	@DatabaseSetup("EmployeeRepositoryITTestData.xml")
+	//@DatabaseSetup("EmployeeRepositoryITTestData.xml")
 	public void TestGetMultiTypeEmployee() {
 		Employee employee = employeeRepository.findOne(1);
 		assertTrue(employee instanceof Employee);
