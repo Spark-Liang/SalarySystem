@@ -1,4 +1,4 @@
-package com.lzh.salarysystem.service;
+package com.lzh.salarysystem.service.impl;
 
 import java.math.BigDecimal;
 

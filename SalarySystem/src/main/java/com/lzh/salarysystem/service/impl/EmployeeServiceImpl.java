@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.lzh.salarysystem.common.util.ValidatorHelper;
 import com.lzh.salarysystem.entity.Employee;
+import com.lzh.salarysystem.exception.EmployeeCantFoundById;
 import com.lzh.salarysystem.repository.EmployeeRepository;
-import com.lzh.salarysystem.service.EmployeeCantNotFoundByID;
 import com.lzh.salarysystem.service.EmployeeService;
 import com.lzh.salarysystem.service.validator.ValidateEmployeeBeforeAdd;
 
@@ -33,7 +33,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public void delete(Integer empID) {
 		Employee employeeToDelete = employeeRepository.findOne(empID);
 		if(employeeToDelete == null) {
-			throw new EmployeeCantNotFoundByID();
+			throw new EmployeeCantFoundById();
 		}
 		employeeRepository.delete(employeeToDelete);
 	}

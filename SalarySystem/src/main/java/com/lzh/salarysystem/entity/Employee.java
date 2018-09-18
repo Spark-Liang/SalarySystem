@@ -22,6 +22,14 @@ public class Employee {
 
 	public static final int MAX_NAME_LENGTH = 32;
 	
+	public Employee() {}
+
+	public Employee(Integer empID) {
+		this.empID = empID;
+	}
+	
+	/*---------------------------------- Field Start --------------------------------------*/
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer empID;
@@ -31,14 +39,52 @@ public class Employee {
 	
 	@Column(length = MAX_ADDRESS_LENGTH,nullable = false)
 	private String address;
+	
+	/*----------------------------------  Field End  --------------------------------------*/
+	
+	/*---------------------------------- logic Start --------------------------------------*/
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((empID == null) ? 0 : empID.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
 
-	public Employee() {}
-
-	public Employee(Integer empID) {
-		this.empID = empID;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Employee other = (Employee) obj;
+		if (address == null) {
+			if (other.address != null)
+				return false;
+		} else if (!address.equals(other.address))
+			return false;
+		if (empID == null) {
+			if (other.empID != null)
+				return false;
+		} else if (!empID.equals(other.empID))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
 	
-	//******************************* getter and setter start ***************************************// 
+	/*----------------------------------- logic End ---------------------------------------*/
+	
+	/*--------------------------- getter and setter Start ---------------------------------*/
+	
 	public Integer getEmpID() {
 		return empID;
 	}
@@ -59,5 +105,7 @@ public class Employee {
 		this.address = address;
 	}
 	
-	//******************************* getter and setter end ***************************************//
+	/*---------------------------  getter and setter End  ---------------------------------*/
+	
+	
 }

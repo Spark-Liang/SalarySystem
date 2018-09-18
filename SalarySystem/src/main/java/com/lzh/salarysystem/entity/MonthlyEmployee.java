@@ -5,17 +5,10 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorValue("Monthly")
-//@DiscriminatorColumn(name = "EmployeeType")
 public class MonthlyEmployee extends Employee{
-	
-	@Column(scale = 20,precision = 4)
-	private BigDecimal monthlySalary;
 	
 	public static final BigDecimal MIN_MONTH_SALARY = new BigDecimal(0);
 	
@@ -25,7 +18,43 @@ public class MonthlyEmployee extends Employee{
 		super(empID);
 	}
 	
-	//******************************* getter and setter start ***************************************//
+	/*---------------------------------- Field Start --------------------------------------*/
+	
+	@Column(scale = 20,precision = 4)
+	private BigDecimal monthlySalary;
+	
+	/*----------------------------------  Field End  --------------------------------------*/
+	
+	/*---------------------------------- logic Start --------------------------------------*/
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((monthlySalary == null) ? 0 : monthlySalary.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (!(obj instanceof MonthlyEmployee))
+			return false;
+		MonthlyEmployee other = (MonthlyEmployee) obj;
+		if (monthlySalary == null) {
+			if (other.monthlySalary != null)
+				return false;
+		} else if (!monthlySalary.equals(other.monthlySalary))
+			return false;
+		return true;
+	}
+	
+	/*----------------------------------- logic End ---------------------------------------*/
+	
+	/*--------------------------- getter and setter Start ---------------------------------*/
 	
 	public BigDecimal getMonthlySalary() {
 		return monthlySalary;
@@ -34,5 +63,8 @@ public class MonthlyEmployee extends Employee{
 		this.monthlySalary = monthlySalary;
 	}
 
-	//******************************* getter and setter end ***************************************//
+	/*---------------------------  getter and setter End  ---------------------------------*/
+	
+	
+	
 }

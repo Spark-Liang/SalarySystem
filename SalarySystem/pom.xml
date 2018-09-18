@@ -106,20 +106,36 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-			<!-- 提供对spring整合支持 -->
+		<!-- 提供对spring整合支持 -->
 		<dependency>
 			<groupId>com.baidu.unbiz</groupId>
 			<artifactId>fluent-validator-spring</artifactId>
 			<version>${fluentValidator.version}</version>
 		</dependency>
-			<!-- 提供对jsr303特性的支持 -->
+		<!-- 提供对jsr303特性的支持 -->
 		<dependency>
 			<groupId>com.baidu.unbiz</groupId>
 			<artifactId>fluent-validator-jsr303</artifactId>
 			<version>${fluentValidator.version}</version>
 		</dependency>
 		<!-- fluent validator start -->
-		
+
+		<!-- apache common utils start -->
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.8</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.1</version>
+		</dependency>
+
+		<!-- apache common utils end -->
+
 	</dependencies>
 
 	<build>

@@ -39,7 +39,7 @@ validatorHelper
 Case 2 : DelEmp
 	can delete when the employee can be found
 	
-	throw EmployeeCantNotFoundByID when can not find employee by id 
+	throw EmployeeCantFoundByID when can not find employee by id 
 	
 
 Case 3 : record TimeCard
@@ -47,15 +47,34 @@ WorkRecordService.logWorkStart(empID):
 
 	can log work start when given the right empID
 
-	should throw EmployeeCantNotFoundByID when cant find employee by id
+	should throw EmployeeCantFoundByID when cant find employee by id
 	
 	should throw NotAnHourlyEmloyee when the given ID is related to HourlyEmployee
 	
-	should throw EmloyeeHasBeenWorking when a working employee try to log start
+	should throw HourlyEmloyeeHasBeenWorking when a working employee try to log start
+	
+WorkRecordService.logWorkEnd(empID):
+	
+	check employee is not null and is HourlyEmployee
+	
+	should_throw_HourlyEmloyeeDoesNotWorking_when_try_to_log_end_but_not_found_record
+	
+	should throw HourlyEmloyeeDoesNotWorking when _try_to_log_end_but_found_record_is_finish
+	
+WorkRecordService.getTimeCardByDate(empID,date):
+
+	check employee is not null and is HourlyEmployee
 	
 	
+WorkRecordService.finishCurrentDateWorkRecord(currentDate);
+	
+	should all record generate the right TimeCard 
+
+	should all record move to history Table
+	
+	should all record remove from current Table
 	
 	
-	
-	
+workRecordService.calculateTimeCardsFromWorkRecords:
+	should return a timeCard when an employee with one record
 	

@@ -1,4 +1,4 @@
-package com.lzh.salarysystem.service;
+package com.lzh.salarysystem.service.impl;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -19,6 +19,7 @@ import com.lzh.salarysystem.exception.AddressIsTooLong;
 import com.lzh.salarysystem.exception.NameIsNull;
 import com.lzh.salarysystem.exception.NameIsTooLong;
 import com.lzh.salarysystem.repository.EmployeeRepository;
+import com.lzh.salarysystem.service.EmployeeService;
 import com.lzh.salarysystem.service.impl.EmployeeServiceImpl;
 import com.lzh.salarysystem.service.validator.ValidateEmployeeBeforeAdd;
 

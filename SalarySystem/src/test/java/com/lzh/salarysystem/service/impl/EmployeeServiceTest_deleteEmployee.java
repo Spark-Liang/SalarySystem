@@ -1,4 +1,4 @@
-package com.lzh.salarysystem.service;
+package com.lzh.salarysystem.service.impl;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -11,7 +11,9 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.lzh.salarysystem.entity.Employee;
+import com.lzh.salarysystem.exception.EmployeeCantFoundById;
 import com.lzh.salarysystem.repository.EmployeeRepository;
+import com.lzh.salarysystem.service.EmployeeService;
 import com.lzh.salarysystem.service.impl.EmployeeServiceImpl;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -39,7 +41,7 @@ public class EmployeeServiceTest_deleteEmployee {
 		verify(employeeRepository,times(1)).delete(employeeInDB);
 	}
 
-	@Test(expected = EmployeeCantNotFoundByID.class)
+	@Test(expected = EmployeeCantFoundById.class)
 	public void throw_Employee_id_is_Invalid_when_can_not_find_employee_by_id() {
 		Integer empID = 1;
 		when(employeeRepository.findOne(empID)).thenReturn(null);

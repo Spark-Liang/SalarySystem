@@ -3,30 +3,58 @@ package com.lzh.salarysystem.entity;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 
 @Entity
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorValue("Hourly")
-//@DiscriminatorColumn(name = "EmployeeType")
 public class HourlyEmployee extends Employee {
 	
-	@Column(scale = 10,precision = 4)
-	private BigDecimal hourlyRate;
-	
 	public static final BigDecimal MIN_HOURLY_RATE = new BigDecimal(0);
-
+	
 	public HourlyEmployee() {}
 	
 	public HourlyEmployee(Integer empID) {
 		super(empID);
 	}
 	
-	//******************************* getter and setter start ***************************************//
+	/*---------------------------------- Field Start --------------------------------------*/
+	
+	@Column(scale = 10,precision = 4)
+	private BigDecimal hourlyRate;
+	
+	/*----------------------------------  Field End  --------------------------------------*/
+	
+	/*---------------------------------- logic Start --------------------------------------*/
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((hourlyRate == null) ? 0 : hourlyRate.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (!(obj instanceof HourlyEmployee))
+			return false;
+		HourlyEmployee other = (HourlyEmployee) obj;
+		if (hourlyRate == null) {
+			if (other.hourlyRate != null)
+				return false;
+		} else if (!hourlyRate.equals(other.hourlyRate))
+			return false;
+		return true;
+	}
+	
+	/*----------------------------------- logic End ---------------------------------------*/
+	
+	/*--------------------------- getter and setter Start ---------------------------------*/
 	
 	public BigDecimal getHourlyRate() {
 		return hourlyRate;
@@ -36,5 +64,6 @@ public class HourlyEmployee extends Employee {
 		this.hourlyRate = hourlyRate;
 	}
 	
-	//******************************* getter and setter end ***************************************//
+	/*---------------------------  getter and setter End  ---------------------------------*/
+	
 }
