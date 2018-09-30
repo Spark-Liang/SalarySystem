@@ -7,13 +7,15 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.lzh.salarysystem.annotation.profile.ProfileValue;
 
 @Configuration
-@PropertySource("classpath:/static/DB/database-config.properties")
 @EnableConfigurationProperties(DataSourceProperties.class)
+@PropertySource("classpath:/static/DB/database-config-${spring.profiles.active}.properties")
 public class DataSourceConfiguration {
 
 	@Autowired
@@ -29,4 +31,5 @@ public class DataSourceConfiguration {
 		return dataSource;
 	}
 
+	
 }

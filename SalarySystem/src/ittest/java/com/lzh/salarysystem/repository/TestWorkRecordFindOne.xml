@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <Employee id="1" name="test_1" address="test_address_1" EmployeeType="Hourly" hourlyRate ="100"/>
+  <Employee id="2" name="test_2" address="test_address_2" EmployeeType="Hourly" hourlyRate ="200"/>
+  <WorkRecord id="1" empID="1" startTime="8:00" endTime="13:13"/>
+  <WorkRecord id="2" empID="2" startTime="9:00" endTime="15:13"/>
+  <WorkRecord id="3" empID="1" startTime="17:00" />
+</dataset>

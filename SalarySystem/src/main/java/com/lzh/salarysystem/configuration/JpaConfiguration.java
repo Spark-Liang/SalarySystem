@@ -12,9 +12,12 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
+import com.lzh.salarysystem.annotation.profile.Dev;
+import com.lzh.salarysystem.annotation.profile.ITTest;
+
 @Configuration
-@PropertySource("classpath:/static/DB/database-config.properties")
 @EnableConfigurationProperties(JpaProperties.class)
+@PropertySource("classpath:/static/DB/database-config-${spring.profiles.active}.properties")
 public class JpaConfiguration {
 	
 	@Autowired

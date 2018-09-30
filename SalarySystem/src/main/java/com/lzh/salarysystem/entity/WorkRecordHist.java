@@ -1,14 +1,12 @@
 package com.lzh.salarysystem.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 public class WorkRecordHist {
@@ -21,10 +19,9 @@ public class WorkRecordHist {
 	private Long id;
 	
 	@Embedded
-	private WorkRecordInfo workRecordInfo;
+	private WorkRecordInfo info;
 	
-	@Temporal(TemporalType.DATE)
-	private Date workDate;
+	private LocalDate workDate;
 	
 	/*----------------------------------  Field End  --------------------------------------*/
 	
@@ -36,7 +33,7 @@ public class WorkRecordHist {
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((workDate == null) ? 0 : workDate.hashCode());
-		result = prime * result + ((workRecordInfo == null) ? 0 : workRecordInfo.hashCode());
+		result = prime * result + ((info == null) ? 0 : info.hashCode());
 		return result;
 	}
 
@@ -59,10 +56,10 @@ public class WorkRecordHist {
 				return false;
 		} else if (!workDate.equals(other.workDate))
 			return false;
-		if (workRecordInfo == null) {
-			if (other.workRecordInfo != null)
+		if (info == null) {
+			if (other.info != null)
 				return false;
-		} else if (!workRecordInfo.equals(other.workRecordInfo))
+		} else if (!info.equals(other.info))
 			return false;
 		return true;
 	}
@@ -71,19 +68,19 @@ public class WorkRecordHist {
 	
 	/*--------------------------- getter and setter Start ---------------------------------*/
 	
-	public WorkRecordInfo getWorkRecordInfo() {
-		return workRecordInfo;
+	public WorkRecordInfo getInfo() {
+		return info;
 	}
 
-	public void setWorkRecordInfo(WorkRecordInfo workRecordInfo) {
-		this.workRecordInfo = workRecordInfo;
+	public void setInfo(WorkRecordInfo workRecordInfo) {
+		this.info = workRecordInfo;
 	}
 
-	public Date getWorkDate() {
+	public LocalDate getWorkDate() {
 		return workDate;
 	}
 
-	public void setWorkDate(Date workDate) {
+	public void setWorkDate(LocalDate workDate) {
 		this.workDate = workDate;
 	}
 

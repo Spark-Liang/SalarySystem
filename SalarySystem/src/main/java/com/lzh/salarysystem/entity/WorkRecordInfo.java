@@ -1,24 +1,24 @@
 package com.lzh.salarysystem.entity;
 
-import java.util.Date;
+import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Embeddable
 public class WorkRecordInfo {
 	/*---------------------------------- Field Start --------------------------------------*/
-	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "empID", updatable = false ,nullable = false)
 	private HourlyEmployee employee;
 	
 	@Column(nullable = false)
-	@Temporal(TemporalType.TIME)
-	private Date startTime;
+	private LocalTime startTime;
 	
-	@Temporal(TemporalType.TIME)
-	private Date endTime;
+	private LocalTime endTime;
 	
 	/*----------------------------------  Field End  --------------------------------------*/
 	
@@ -78,19 +78,19 @@ public class WorkRecordInfo {
 		this.employee = employee;
 	}
 
-	public Date getStartTime() {
+	public LocalTime getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Date startTime) {
+	public void setStartTime(LocalTime startTime) {
 		this.startTime = startTime;
 	}
 
-	public Date getEndTime() {
+	public LocalTime getEndTime() {
 		return endTime;
 	}
 	
-	public void setEndTime(Date endTime) {
+	public void setEndTime(LocalTime endTime) {
 		this.endTime = endTime;
 	}
 	

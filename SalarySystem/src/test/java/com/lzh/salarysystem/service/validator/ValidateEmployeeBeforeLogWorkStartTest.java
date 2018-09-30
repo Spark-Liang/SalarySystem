@@ -2,9 +2,8 @@ package com.lzh.salarysystem.service.validator;
 
 import static org.mockito.Mockito.when;
 
-import java.util.Date;
+import java.time.LocalTime;
 
-import org.apache.commons.lang.time.DateUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -14,15 +13,16 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.lzh.salarysystem.entity.Employee;
 import com.lzh.salarysystem.entity.HourlyEmployee;
 import com.lzh.salarysystem.entity.WorkRecord;
+import com.lzh.salarysystem.entity.WorkRecordInfo;
 import com.lzh.salarysystem.exception.HourlyEmloyeeHasBeenWorking;
-import com.lzh.salarysystem.repository.WorkRecordRepository;
 import com.lzh.salarysystem.service.Validator;
+import com.lzh.salarysystem.service.WorkRecordService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ValidateEmployeeBeforeLogWorkStartTest extends ValidateEmployeeIsHourlyEmployeeTest{
 	
 	@Mock
-	protected WorkRecordRepository workRecordRepository;
+	protected WorkRecordService workRecordService;
 
 	@InjectMocks
 	private ValidateEmployeeBeforeLogWorkStart SUT = (ValidateEmployeeBeforeLogWorkStart) getSUT();
@@ -36,7 +36,7 @@ public class ValidateEmployeeBeforeLogWorkStartTest extends ValidateEmployeeIsHo
 	public void can_pass_validate_when_employee_has_no_workrecord() {
 		Integer empID = 1;
 		Employee employee = buildSuitableEmployee(empID);
-		when(workRecordRepository.findCurrentWorkRecord(empID)).thenReturn(null);
+		when(workRecordService.findCurrentWorkRecord(empID)).thenReturn(null);
 		
 		SUT.validate(employee);
 	}
@@ -46,11 +46,13 @@ public class ValidateEmployeeBeforeLogWorkStartTest extends ValidateEmployeeIsHo
 		Integer empID = 1;
 		Employee employee = buildSuitableEmployee(empID);
 		WorkRecord currentWorkRecord = new WorkRecord();
-		Date currentDate = new Date();
-		currentWorkRecord.getWorkRecordInfo().setEmployee((HourlyEmployee) employee);
-		currentWorkRecord.getWorkRecordInfo().setStartTime(currentDate);
-		currentWorkRecord.getWorkRecordInfo().setEndTime(DateUtils.addHours(currentDate, 8));
-		when(workRecordRepository.findCurrentWorkRecord(empID)).thenReturn(currentWorkRecord);
+		WorkRecordInfo currentWorkRecordInfo = new WorkRecordInfo();
+		currentWorkRecordInfo.setEmployee(new HourlyEmployee(empID));
+		LocalTime startTime = LocalTime.now();
+		currentWorkRecordInfo.setStartTime(startTime);
+		currentWorkRecordInfo.setEndTime(startTime.plusHours(8));
+		currentWorkRecord.setInfo(currentWorkRecordInfo);
+		when(workRecordService.findCurrentWorkRecord(empID)).thenReturn(currentWorkRecord);
 		
 		SUT.validate(employee);
 	}
@@ -60,11 +62,13 @@ public class ValidateEmployeeBeforeLogWorkStartTest extends ValidateEmployeeIsHo
 		Integer empID = 1;
 		Employee employee = buildSuitableEmployee(empID);
 		WorkRecord currentWorkRecord = new WorkRecord();
-		currentWorkRecord.getWorkRecordInfo().setEmployee(new HourlyEmployee(empID));
-		Date currentDatetime = new Date();
-		currentWorkRecord.getWorkRecordInfo().setStartTime(currentDatetime);
-		currentWorkRecord.getWorkRecordInfo().setEndTime(null);
-		when(workRecordRepository.findCurrentWorkRecord(empID)).thenReturn(currentWorkRecord);
+		WorkRecordInfo currentWorkRecordInfo = new WorkRecordInfo();
+		currentWorkRecordInfo.setEmployee(new HourlyEmployee(empID));
+		LocalTime startTime = LocalTime.now();
+		currentWorkRecordInfo.setStartTime(startTime);
+		currentWorkRecordInfo.setEndTime(null);
+		currentWorkRecord.setInfo(currentWorkRecordInfo);
+		when(workRecordService.findCurrentWorkRecord(empID)).thenReturn(currentWorkRecord);
 		
 		SUT.validate(employee);
 	}

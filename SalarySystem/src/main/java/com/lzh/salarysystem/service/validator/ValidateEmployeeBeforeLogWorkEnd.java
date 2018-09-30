@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 import com.lzh.salarysystem.entity.Employee;
 import com.lzh.salarysystem.entity.WorkRecord;
 import com.lzh.salarysystem.exception.HourlyEmloyeeDoesNotWorking;
-import com.lzh.salarysystem.repository.WorkRecordRepository;
 import com.lzh.salarysystem.service.Validator;
+import com.lzh.salarysystem.service.WorkRecordService;
 
 @Component
 public class ValidateEmployeeBeforeLogWorkEnd implements Validator<Employee> {
@@ -15,7 +15,7 @@ public class ValidateEmployeeBeforeLogWorkEnd implements Validator<Employee> {
 	private ValidateEmployeeIsHourlyEmployee validateEmployeeIsHourlyEmployee;
 	
 	@Autowired
-	private WorkRecordRepository workRecordRepository;
+	private WorkRecordService workRecordService;
 	
 	@Autowired
 	public ValidateEmployeeBeforeLogWorkEnd(ValidateEmployeeIsHourlyEmployee validateEmployeeIsHourlyEmployee) {
@@ -28,7 +28,13 @@ public class ValidateEmployeeBeforeLogWorkEnd implements Validator<Employee> {
 	@Override
 	public void validate(Employee employee) {
 		validateEmployeeIsHourlyEmployee.validate(employee);
-		WorkRecord currentWorkRecord = workRecordRepository.findCurrentWorkRecord(employee.getEmpID());
+		validateHasCurrentRecord(employee);
+	}
+
+
+
+	private void validateHasCurrentRecord(Employee employee) {
+		WorkRecord currentWorkRecord = workRecordService.findCurrentWorkRecord(employee.getId());
 		if(currentWorkRecord == null || !currentWorkRecord.isCurrentWorkRecord()) {
 			throw new HourlyEmloyeeDoesNotWorking();
 		}

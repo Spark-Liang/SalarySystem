@@ -64,8 +64,8 @@ public class WorkRecordService_logWorkStart {
 		SUT.logWorkStart(empID);
 		
 		verify(workRecordRepository,times(1)).save(workRecordCaptor.capture());
-		WorkRecordInfo infoOfWorkRecordToSave = workRecordCaptor.getAllValues().get(0).getWorkRecordInfo();
-		assertEquals(empID, infoOfWorkRecordToSave.getEmployee().getEmpID());
+		WorkRecordInfo infoOfWorkRecordToSave = workRecordCaptor.getAllValues().get(0).getInfo();
+		assertEquals(empID, infoOfWorkRecordToSave.getEmployee().getId());
 		assertNotNull(infoOfWorkRecordToSave.getStartTime());
 		assertNull(infoOfWorkRecordToSave.getEndTime());
 	}

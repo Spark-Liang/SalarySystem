@@ -1,7 +1,9 @@
 package com.lzh.salarysystem.service.impl;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -9,14 +11,16 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.lzh.salarysystem.common.util.DateUtils;
 import com.lzh.salarysystem.common.util.ValidatorHelper;
 import com.lzh.salarysystem.entity.Employee;
 import com.lzh.salarysystem.entity.HourlyEmployee;
 import com.lzh.salarysystem.entity.TimeCard;
 import com.lzh.salarysystem.entity.WorkRecord;
+import com.lzh.salarysystem.entity.WorkRecordHist;
 import com.lzh.salarysystem.entity.WorkRecordInfo;
 import com.lzh.salarysystem.repository.EmployeeRepository;
+import com.lzh.salarysystem.repository.TimeCardRepository;
+import com.lzh.salarysystem.repository.WorkRecordHistRepository;
 import com.lzh.salarysystem.repository.WorkRecordRepository;
 import com.lzh.salarysystem.service.WorkRecordService;
 import com.lzh.salarysystem.service.validator.ValidateEmployeeBeforeLogWorkEnd;
@@ -30,6 +34,12 @@ public class WorkRecordServiceImpl implements WorkRecordService {
 	
 	@Autowired
 	private EmployeeRepository employeeRepository;
+	
+	@Autowired
+	private TimeCardRepository timeCardRepository;
+	
+	@Autowired
+	private WorkRecordHistRepository workRecordHistRepository;
 	
 	@Autowired
 	private ValidatorHelper validatorHelper;
@@ -48,9 +58,9 @@ public class WorkRecordServiceImpl implements WorkRecordService {
 		WorkRecord newWorkRecord = new WorkRecord();
 		WorkRecordInfo newWorkRecordInfo = new WorkRecordInfo();
 		newWorkRecordInfo.setEmployee((HourlyEmployee) employee);
-		Date currentDateTime = new Date();
+		LocalTime currentDateTime = LocalTime.now();
 		newWorkRecordInfo.setStartTime(currentDateTime);
-		newWorkRecord.setWorkRecordInfo(newWorkRecordInfo);
+		newWorkRecord.setInfo(newWorkRecordInfo);
 		return newWorkRecord;
 	}
 
@@ -59,42 +69,56 @@ public class WorkRecordServiceImpl implements WorkRecordService {
 		Employee employee = employeeRepository.findOne(empID);
 		validatorHelper.getValidator(ValidateEmployeeBeforeLogWorkEnd.class).validate(employee);
 		
-		WorkRecord currentWorkRecord = workRecordRepository.findCurrentWorkRecord(empID);
-		currentWorkRecord.getWorkRecordInfo().setEndTime(new Date());
+		WorkRecord currentWorkRecord = findCurrentWorkRecord(empID);
+		currentWorkRecord.getInfo().setEndTime(LocalTime.now());
 		workRecordRepository.save(currentWorkRecord);
 	}
 
 	@Override
-	public void finishCurrentDateWorkRecord(Date workDate) {
-		// TODO Auto-generated method stub
+	public void finishCurrentDateWorkRecord(LocalDate workDate) {
+		List<WorkRecord> workRecordInDBs = workRecordRepository.findAll();
 		
+		Collection<TimeCard> timeCards = calculateTimeCardsFromWorkRecords(workRecordInDBs, workDate);
+		timeCardRepository.save(timeCards);
+		
+		List<WorkRecordHist> workRecordHistToBeSave = 
+				workRecordInDBs.stream()
+				.map(record -> {
+					WorkRecordHist histResult = new WorkRecordHist();
+					histResult.setWorkDate(workDate);
+					histResult.setInfo(record.getInfo());
+					return histResult;
+				}).collect(Collectors.toList());
+		workRecordHistRepository.save(workRecordHistToBeSave);
+		
+		workRecordRepository.deleteAll();
 	}
 	
-	Collection<TimeCard> calculateTimeCardsFromWorkRecords(Collection<WorkRecord> sourceRecords,Date workDate){
+	Collection<TimeCard> calculateTimeCardsFromWorkRecords(Collection<WorkRecord> sourceRecords,LocalDate workDate){
 		Map<HourlyEmployee, List<WorkRecordInfo>> employeeInfoMap = sourceRecords.stream()
-				.map(WorkRecord::getWorkRecordInfo)
+				.map(WorkRecord::getInfo)
 				.collect(Collectors.groupingBy(WorkRecordInfo::getEmployee));
 		return employeeInfoMap.entrySet().stream()
 				.map(entry -> {
 					List<WorkRecordInfo> recordInfos = entry.getValue();
-					Date workTime = recordInfos.stream()
+					Duration workTime = recordInfos.stream()
+							.filter(info -> info.getEndTime() != null)
 							.map(info -> {
-								Date endTime = info.getEndTime()
-									,startTime = info.getStartTime();
-								if(endTime == null) {
-									endTime = new Date(startTime.getTime());
-									endTime.setHours(23);
-									endTime.setMinutes(59);
-									endTime.setSeconds(59);
-								}
-								return DateUtils.sub(endTime, startTime);
+								Duration duration = 
+										Duration.between(info.getStartTime(),info.getEndTime());
+								return duration;
 							})
-							.collect(Collectors.reducing(new Date(0), (a,b) -> DateUtils.add(a, b)));
+							.collect(Collectors.reducing(Duration.ZERO, (a,b) -> a.plus(b)));
 					return new TimeCard(
 							entry.getKey()
 							, workDate
-							, workTime.getHours()
+							, (int)workTime.toHours()
 							);
 				}).collect(Collectors.toList());
+	}
+	
+	@Override
+	public WorkRecord findCurrentWorkRecord(Integer empID) {
+		return workRecordRepository.findCurrentWorkRecord(empID);
 	}
 }

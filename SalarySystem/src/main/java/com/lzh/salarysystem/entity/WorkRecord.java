@@ -13,33 +13,33 @@ public class WorkRecord {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long workRecordId;
+	private Long id;
 	
 	@Embedded
-	private WorkRecordInfo workRecordInfo;
+	private WorkRecordInfo info;
 	
 	/*--------------------------- Field Start ---------------------------------*/
 	
 	/*--------------------------- logic Start ---------------------------------*/
 	
 	public boolean isCurrentWorkRecord() {
-		return workRecordInfo.isCurrentWorkRecordInfo();
+		return info.isCurrentWorkRecordInfo();
 	}
 	
 	/*--------------------------- logic end ---------------------------------*/
 	
 	/*--------------------------- getter and setter Start ---------------------------------*/
 	
-	public WorkRecordInfo getWorkRecordInfo() {
-		return workRecordInfo;
+	public WorkRecordInfo getInfo() {
+		return info;
 	}
 
-	public void setWorkRecordInfo(WorkRecordInfo workRecordInfo) {
-		this.workRecordInfo = workRecordInfo;
+	public void setInfo(WorkRecordInfo workRecordInfo) {
+		this.info = workRecordInfo;
 	}
 
 	public Long getWorkRecordId() {
-		return workRecordId;
+		return id;
 	}
 
 	/*--------------------------- getter and setter End ---------------------------------*/
@@ -48,14 +48,14 @@ public class WorkRecord {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("WorkRecord [");
-		if (workRecordId != null) {
+		if (id != null) {
 			builder.append("workRecordId=");
-			builder.append(workRecordId);
+			builder.append(id);
 			builder.append(", ");
 		}
-		if (workRecordInfo != null) {
+		if (info != null) {
 			builder.append("workRecordInfo=");
-			builder.append(workRecordInfo);
+			builder.append(info);
 		}
 		builder.append("]");
 		return builder.toString();

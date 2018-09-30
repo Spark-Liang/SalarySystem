@@ -4,11 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.Date;
+import java.time.LocalTime;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,7 +47,7 @@ public class WorkRecordService_logWorkEnd {
 	protected ValidateEmployeeBeforeLogWorkStart validator;
 	
 	@InjectMocks
-	protected WorkRecordService SUT = new WorkRecordServiceImpl();
+	protected WorkRecordService SUT = spy(new WorkRecordServiceImpl());
 	
 	@Captor
 	public ArgumentCaptor<WorkRecord> workRecordCaptor;
@@ -67,8 +68,8 @@ public class WorkRecordService_logWorkEnd {
 		SUT.logWorkEnd(empID);
 		
 		verify(workRecordRepository,times(1)).save(workRecordCaptor.capture());
-		WorkRecordInfo infoWorkRecordToSave = workRecordCaptor.getAllValues().get(0).getWorkRecordInfo();
-		assertEquals(empID, infoWorkRecordToSave.getEmployee().getEmpID());
+		WorkRecordInfo infoWorkRecordToSave = workRecordCaptor.getAllValues().get(0).getInfo();
+		assertEquals(empID, infoWorkRecordToSave.getEmployee().getId());
 		assertNotNull(infoWorkRecordToSave.getStartTime());
 		assertNotNull(infoWorkRecordToSave.getEndTime());
 	}
@@ -77,11 +78,10 @@ public class WorkRecordService_logWorkEnd {
 		WorkRecord currentWorkRecord = new WorkRecord();
 		WorkRecordInfo currentWorkRecordInfo= new WorkRecordInfo();
 		currentWorkRecordInfo.setEmployee((HourlyEmployee) employeeInDB);
-		Date currentDate = new Date();
-		currentWorkRecordInfo.setStartTime(currentDate);
+		currentWorkRecordInfo.setStartTime(LocalTime.now());
 		currentWorkRecordInfo.setEndTime(null);
-		currentWorkRecord.setWorkRecordInfo(currentWorkRecordInfo);
-		when(workRecordRepository.findCurrentWorkRecord(empID)).thenReturn(currentWorkRecord);
+		currentWorkRecord.setInfo(currentWorkRecordInfo);
+		when(SUT.findCurrentWorkRecord(empID)).thenReturn(currentWorkRecord);
 		return currentWorkRecord;
 	}
 	

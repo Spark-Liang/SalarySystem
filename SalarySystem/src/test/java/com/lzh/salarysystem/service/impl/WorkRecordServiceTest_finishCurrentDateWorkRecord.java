@@ -3,13 +3,15 @@ package com.lzh.salarysystem.service.impl;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
@@ -20,8 +22,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.lzh.salarysystem.common.util.DateUtils;
-import com.lzh.salarysystem.entity.HourlyEmployee;
 import com.lzh.salarysystem.entity.HourlyEmployee;
 import com.lzh.salarysystem.entity.TimeCard;
 import com.lzh.salarysystem.entity.WorkRecord;
@@ -58,14 +58,15 @@ public class WorkRecordServiceTest_finishCurrentDateWorkRecord {
 	
 	@Test
 	public void should_finish_all_record_and_generate_timecard_and_remove_record_from_current_to_history() {
-		Date workDate = new Date();
+		LocalDate workDate = LocalDate.now();
 		List<WorkRecord> workRecordsInDB = getTestWorkRecords(workDate);
+		when(workRecordRepository.findAll()).thenReturn(workRecordsInDB);
 		List<WorkRecordInfo> sourceRecordInfos = 
 				workRecordsInDB.stream()
-				.map(WorkRecord::getWorkRecordInfo)
+				.map(WorkRecord::getInfo)
 				.collect(Collectors.toList());
 		
-		List<TimeCard> timeCards = calculateTimeCard(sourceRecordInfos,workDate);
+		Collection<TimeCard> timeCards = ((WorkRecordServiceImpl)SUT).calculateTimeCardsFromWorkRecords(workRecordsInDB,workDate);
 		
 		SUT.finishCurrentDateWorkRecord(workDate);
 		
@@ -74,15 +75,13 @@ public class WorkRecordServiceTest_finishCurrentDateWorkRecord {
 		timeCardsToSaveCaptor.getValue().forEach(e -> timeCardsToBeSave.add(e));
 		assertEquals(timeCards,timeCardsToBeSave);
 		verify(workRecordHistRepository,times(1)).save(workRecordHistToBeSave.capture());
-		List<WorkRecordHist> listOfWorkRecordHistToBeSave = new LinkedList<>();
-		workRecordHistToBeSave.getValue().forEach(e -> listOfWorkRecordHistToBeSave.add(e));
-		assertEquals(sourceRecordInfos, listOfWorkRecordHistToBeSave);
-		verify(workRecordRepository,times(1)).save(workRecordsToBeDelete.capture());
-		List<WorkRecord> listOfRecordToBeDelete = workRecordsToBeDelete.getValue();
-		assertEquals(workRecordsInDB, listOfRecordToBeDelete);
+		List<WorkRecordInfo> listOfWorkRecordInfoToBeSave = new LinkedList<>();
+		workRecordHistToBeSave.getValue().forEach(e -> listOfWorkRecordInfoToBeSave.add(e.getInfo()));
+		assertEquals(sourceRecordInfos, listOfWorkRecordInfoToBeSave);
+		verify(workRecordRepository,times(1)).deleteAll();
 	}
 
-	private List<WorkRecord> getTestWorkRecords(Date workDate) {
+	private List<WorkRecord> getTestWorkRecords(LocalDate workDate) {
 		List<WorkRecord> results = new LinkedList<>();
 		results.add(buildRecordWhichEmployeHasOneRecord(workDate));
 		results.addAll(buildRecordWhichEmployeHasTwoRecord(workDate));
@@ -90,73 +89,42 @@ public class WorkRecordServiceTest_finishCurrentDateWorkRecord {
 		return results;
 	}
 
-	private WorkRecord buildRecordWhichEmployeDoesNotFinishWork(Date workDate) {
+	private WorkRecord buildRecordWhichEmployeDoesNotFinishWork(LocalDate workDate) {
 		HourlyEmployee employee = buildSimpleHourlyEmployeeWithIdAndRate(1,0.1);
-		WorkRecordInfo workRecordInfo = new WorkRecordInfo();
-		workRecordInfo.setEmployee(employee);
-		workRecordInfo.setStartTime(DateUtils.addMinutes(workDate, 1));
-		workRecordInfo.setStartTime(null);
-		WorkRecord workRecord = new WorkRecord();
-		workRecord.setWorkRecordInfo(workRecordInfo);
+		LocalTime startTime = LocalTime.of(8, 0);
+		Integer hours_first = 2;
+		WorkRecord workRecord = buildRecordWithStartTimeWorkHoursAndEmployee(startTime, hours_first, employee);
+		workRecord.getInfo().setEndTime(null);
 		return workRecord;
 	}
 
-	private Collection<? extends WorkRecord> buildRecordWhichEmployeHasTwoRecord(Date workDate) {
-		List<WorkRecord> results = new LinkedList<>();
+	private Collection<? extends WorkRecord> buildRecordWhichEmployeHasTwoRecord(LocalDate workDate) {
+		LocalTime startTime = LocalTime.of(8, 0);
+		Integer hours_first = 2
+				,hours_second = 4;
 		HourlyEmployee employee = buildSimpleHourlyEmployeeWithIdAndRate(1,0.1);
-		WorkRecordInfo workRecordInfo1 = new WorkRecordInfo();
-		workRecordInfo1.setEmployee(employee);
-		workRecordInfo1.setStartTime(DateUtils.addMinutes(workDate, 1));
-		workRecordInfo1.setStartTime(DateUtils.addMinutes(workDate, 2));
-		WorkRecord workRecord1 = new WorkRecord();
-		workRecord1.setWorkRecordInfo(workRecordInfo1);
-		results.add(workRecord1);
-		WorkRecordInfo workRecordInfo2 = new WorkRecordInfo();
-		workRecordInfo2.setEmployee(employee);
-		workRecordInfo2.setStartTime(DateUtils.addMinutes(workDate, 3));
-		workRecordInfo2.setStartTime(DateUtils.addMinutes(workDate, 4));
-		WorkRecord workRecord2 = new WorkRecord();
-		workRecord1.setWorkRecordInfo(workRecordInfo2);
-		results.add(workRecord2);
-		return results;
+		return Arrays.asList(
+				buildRecordWithStartTimeWorkHoursAndEmployee(startTime, hours_first, employee)
+				,buildRecordWithStartTimeWorkHoursAndEmployee(startTime, hours_second, employee)
+				);
 	}
 
-	private WorkRecord buildRecordWhichEmployeHasOneRecord(Date workDate) {
+	private WorkRecord buildRecordWhichEmployeHasOneRecord(LocalDate workDate) {
+		LocalTime startTime = LocalTime.of(8, 0);
+		Integer hours = 2;
 		HourlyEmployee employee = buildSimpleHourlyEmployeeWithIdAndRate(1,0.1);
-		WorkRecordInfo workRecordInfo = new WorkRecordInfo();
-		workRecordInfo.setEmployee(employee);
-		workRecordInfo.setStartTime(DateUtils.addMinutes(workDate, 1));
-		workRecordInfo.setStartTime(DateUtils.addMinutes(workDate, 2));
-		WorkRecord workRecord = new WorkRecord();
-		workRecord.setWorkRecordInfo(workRecordInfo);
-		return workRecord;
+		return buildRecordWithStartTimeWorkHoursAndEmployee(startTime, hours, employee);
 	}
-
-	private List<TimeCard> calculateTimeCard(List<WorkRecordInfo> sourceRecordInfos,Date currentWorkDate) {
-		Map<HourlyEmployee, List<WorkRecordInfo>> employeeInfoMap = sourceRecordInfos.stream()
-				.collect(Collectors.groupingBy(WorkRecordInfo::getEmployee));
-		return employeeInfoMap.entrySet().stream()
-				.map(entry -> {
-					List<WorkRecordInfo> recordInfos = entry.getValue();
-					Date workTime = recordInfos.stream()
-							.map(info -> {
-								Date endTime = info.getEndTime()
-									,startTime = info.getStartTime();
-								if(endTime == null) {
-									endTime = new Date(startTime.getTime());
-									endTime.setHours(23);
-									endTime.setMinutes(59);
-									endTime.setSeconds(59);
-								}
-								return DateUtils.sub(endTime, startTime);
-							})
-							.collect(Collectors.reducing(new Date(0), (a,b) -> DateUtils.add(a, b)));
-					return new TimeCard(
-							entry.getKey()
-							, currentWorkDate
-							, workTime.getHours()
-							);
-				}).collect(Collectors.toList());
+	
+	private WorkRecord buildRecordWithStartTimeWorkHoursAndEmployee(LocalTime startTime, Integer hours,
+			HourlyEmployee employee) {
+		WorkRecordInfo sourceWorkRecordInfo = new WorkRecordInfo();
+		sourceWorkRecordInfo.setEmployee(employee);
+		sourceWorkRecordInfo.setStartTime(startTime);
+		sourceWorkRecordInfo.setEndTime(startTime.plusHours(hours));
+		WorkRecord sourceWorkRecord = new WorkRecord();
+		sourceWorkRecord.setInfo(sourceWorkRecordInfo);
+		return sourceWorkRecord;
 	}
 	
 	private HourlyEmployee buildSimpleHourlyEmployeeWithIdAndRate(int empID, double rate) {

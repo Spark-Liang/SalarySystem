@@ -78,3 +78,14 @@ WorkRecordService.finishCurrentDateWorkRecord(currentDate);
 workRecordService.calculateTimeCardsFromWorkRecords:
 	should return a timeCard when an employee with one record
 	
+	should_return_a_timeCard_when_an_employee_with_two_record
+	
+	should_return_a_timeCard_when_an_employee_with_unfinish_record
+	
+	
+	
+	
+DBUnitEnvironment 
+多线程 
+变的是 创建相关的参数，不变的是 创建的逻辑
+每个test class 主要是数据摆放的位置与class有关

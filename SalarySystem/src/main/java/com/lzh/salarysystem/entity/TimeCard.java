@@ -1,21 +1,22 @@
 package com.lzh.salarysystem.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class TimeCard {
 	
 	public TimeCard() {};
 	
-	public TimeCard(Employee employee, Date workDate, Integer hours) {
+	public TimeCard(Employee employee, LocalDate workDate, Integer hours) {
 		super();
 		this.key.employee = employee;
 		this.key.workDate = workDate;
@@ -29,18 +30,18 @@ public class TimeCard {
 		
 		public TimeCardKey() {}
 		
-		public TimeCardKey(Employee employee, Date workDate) {
+		public TimeCardKey(Employee employee, LocalDate workDate) {
 			super();
 			this.employee = employee;
 			this.workDate = workDate;
 		}
 
 		/*---------------------------------- Field Start --------------------------------------*/
-		
+		@ManyToOne(fetch = FetchType.LAZY)
+		@JoinColumn(name = "embID",updatable = false,nullable = false)
 		private Employee employee;
 		
-		@Temporal(TemporalType.DATE)
-		private Date workDate;
+		private LocalDate workDate;
 		
 		/*----------------------------------  Field End  --------------------------------------*/
 		
@@ -85,7 +86,7 @@ public class TimeCard {
 			return employee;
 		}
 
-		public Date getWorkDate() {
+		public LocalDate getWorkDate() {
 			return workDate;
 		}
 		
@@ -152,11 +153,11 @@ public class TimeCard {
 		this.key.employee = employee;
 	}
 
-	public Date getWorkDate() {
+	public LocalDate getWorkDate() {
 		return key.workDate;
 	}
 
-	public void setWorkDate(Date workDate) {
+	public void setWorkDate(LocalDate workDate) {
 		this.key.workDate = workDate;
 	}
 

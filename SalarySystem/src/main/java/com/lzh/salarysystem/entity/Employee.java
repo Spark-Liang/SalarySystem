@@ -25,14 +25,14 @@ public class Employee {
 	public Employee() {}
 
 	public Employee(Integer empID) {
-		this.empID = empID;
+		this.id = empID;
 	}
 	
 	/*---------------------------------- Field Start --------------------------------------*/
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer empID;
+	private Integer id;
 	
 	@Column(length = MAX_NAME_LENGTH,nullable = false)
 	private String name;
@@ -49,7 +49,7 @@ public class Employee {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + ((empID == null) ? 0 : empID.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -68,10 +68,10 @@ public class Employee {
 				return false;
 		} else if (!address.equals(other.address))
 			return false;
-		if (empID == null) {
-			if (other.empID != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!empID.equals(other.empID))
+		} else if (!id.equals(other.id))
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -85,8 +85,8 @@ public class Employee {
 	
 	/*--------------------------- getter and setter Start ---------------------------------*/
 	
-	public Integer getEmpID() {
-		return empID;
+	public Integer getId() {
+		return id;
 	}
 
 	public String getName() {
