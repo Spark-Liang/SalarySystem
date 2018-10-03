@@ -1,9 +1,7 @@
 package com.lzh.salarysystem.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.lzh.salarysystem.domain.entity.Employee;
 
-import com.lzh.salarysystem.entity.Employee;
-
-public interface EmployeeRepository extends JpaRepository<Employee, Integer>{
+public interface EmployeeRepository extends InheritedClassRepository<Employee, Integer>{
 
 }

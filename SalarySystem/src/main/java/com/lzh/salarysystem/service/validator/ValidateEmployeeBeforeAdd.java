@@ -2,10 +2,10 @@ package com.lzh.salarysystem.service.validator;
 
 import org.springframework.stereotype.Component;
 
-import com.lzh.salarysystem.entity.Employee;
-import com.lzh.salarysystem.entity.HourlyEmployee;
-import com.lzh.salarysystem.entity.MonthlyEmployee;
-import com.lzh.salarysystem.entity.SaleEmployee;
+import com.lzh.salarysystem.domain.entity.Employee;
+import com.lzh.salarysystem.domain.entity.HourlyEmployee;
+import com.lzh.salarysystem.domain.entity.MonthlyEmployee;
+import com.lzh.salarysystem.domain.entity.SaleEmployee;
 import com.lzh.salarysystem.exception.AddressIsNull;
 import com.lzh.salarysystem.exception.AddressIsTooLong;
 import com.lzh.salarysystem.exception.CommissionRateNotAPositiveNumber;

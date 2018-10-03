@@ -12,10 +12,10 @@ import java.util.List;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 
-import com.lzh.salarysystem.entity.HourlyEmployee;
-import com.lzh.salarysystem.entity.TimeCard;
-import com.lzh.salarysystem.entity.WorkRecord;
-import com.lzh.salarysystem.entity.WorkRecordInfo;
+import com.lzh.salarysystem.domain.entity.HourlyEmployee;
+import com.lzh.salarysystem.domain.entity.TimeCard;
+import com.lzh.salarysystem.domain.entity.WorkRecord;
+import com.lzh.salarysystem.domain.valueobject.WorkRecordInfo;
 
 public class WorkRecordServiceImplTest_calculateTimeCardsFromWorkRecords {
 	

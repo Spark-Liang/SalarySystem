@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.lzh.salarysystem.SalarySystemITBaseTest;
-import com.lzh.salarysystem.entity.Employee;
-import com.lzh.salarysystem.entity.HourlyEmployee;
-import com.lzh.salarysystem.entity.MonthlyEmployee;
-import com.lzh.salarysystem.entity.SaleEmployee;
+import com.lzh.salarysystem.domain.entity.Employee;
+import com.lzh.salarysystem.domain.entity.HourlyEmployee;
+import com.lzh.salarysystem.domain.entity.MonthlyEmployee;
+import com.lzh.salarysystem.domain.entity.SaleEmployee;
 
 @Component
 public class EmployeeRepositoryITTest extends SalarySystemITBaseTest{
@@ -28,7 +28,6 @@ public class EmployeeRepositoryITTest extends SalarySystemITBaseTest{
 		assertTrue(employee instanceof Employee);
 		assertEquals("Test_1", employee.getName());
 		assertEquals("Test_address", employee.getAddress());
-		
 		employee = employeeRepository.findOne(2);
 		assertTrue(employee instanceof HourlyEmployee);
 		HourlyEmployee hourlyEmployee = (HourlyEmployee)employee;

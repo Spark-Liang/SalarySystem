@@ -1,4 +1,4 @@
-package com.lzh.salarysystem.entity;
+package com.lzh.salarysystem.domain.entity;
 
 import java.math.BigDecimal;
 
@@ -20,7 +20,7 @@ public class MonthlyEmployee extends Employee{
 	
 	/*---------------------------------- Field Start --------------------------------------*/
 	
-	@Column(scale = 20,precision = 4)
+	@Column(precision = 20,scale = 4)
 	private BigDecimal monthlySalary;
 	
 	/*----------------------------------  Field End  --------------------------------------*/

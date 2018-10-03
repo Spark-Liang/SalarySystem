@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import javax.transaction.Transactional;
 
-import com.lzh.salarysystem.entity.WorkRecord;
+import com.lzh.salarysystem.domain.entity.WorkRecord;
 
 public interface WorkRecordService {
 	

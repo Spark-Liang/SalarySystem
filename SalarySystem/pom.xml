@@ -197,6 +197,14 @@
 				<filtering>false</filtering>
 			</resource>
 			<resource>
+				<directory>src/test/resource</directory>
+				<includes>
+					<include>**/*.xls</include>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+			<resource>
 				<directory>src/ittest/resource</directory>
 				<includes>
 					<include>**/*.xls</include>

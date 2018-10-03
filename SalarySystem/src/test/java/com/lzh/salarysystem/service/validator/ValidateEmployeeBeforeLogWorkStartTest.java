@@ -10,10 +10,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.lzh.salarysystem.entity.Employee;
-import com.lzh.salarysystem.entity.HourlyEmployee;
-import com.lzh.salarysystem.entity.WorkRecord;
-import com.lzh.salarysystem.entity.WorkRecordInfo;
+import com.lzh.salarysystem.domain.entity.Employee;
+import com.lzh.salarysystem.domain.entity.HourlyEmployee;
+import com.lzh.salarysystem.domain.entity.WorkRecord;
+import com.lzh.salarysystem.domain.valueobject.WorkRecordInfo;
 import com.lzh.salarysystem.exception.HourlyEmloyeeHasBeenWorking;
 import com.lzh.salarysystem.service.Validator;
 import com.lzh.salarysystem.service.WorkRecordService;

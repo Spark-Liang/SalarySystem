@@ -15,9 +15,9 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import com.lzh.salarysystem.annotation.profile.Dev;
 import com.lzh.salarysystem.annotation.profile.ITTest;
 
-@Configuration
-@EnableConfigurationProperties(JpaProperties.class)
-@PropertySource("classpath:/static/DB/database-config-${spring.profiles.active}.properties")
+//@Configuration
+//@EnableConfigurationProperties(JpaProperties.class)
+//@PropertySource("classpath:/static/DB/database-config-${spring.profiles.active}.properties")
 public class JpaConfiguration {
 	
 	@Autowired

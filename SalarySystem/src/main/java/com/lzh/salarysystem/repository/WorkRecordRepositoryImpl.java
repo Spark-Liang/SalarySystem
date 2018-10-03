@@ -13,7 +13,7 @@ import org.hibernate.jpa.criteria.OrderImpl;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
-import com.lzh.salarysystem.entity.WorkRecord;
+import com.lzh.salarysystem.domain.entity.WorkRecord;
 
 @Repository
 public class WorkRecordRepositoryImpl {

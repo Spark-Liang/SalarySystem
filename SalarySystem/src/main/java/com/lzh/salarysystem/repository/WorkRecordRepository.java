@@ -3,7 +3,7 @@ package com.lzh.salarysystem.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import com.lzh.salarysystem.entity.WorkRecord;
+import com.lzh.salarysystem.domain.entity.WorkRecord;
 
 public interface WorkRecordRepository extends JpaRepository<WorkRecord, Long>,JpaSpecificationExecutor<WorkRecord>{
 	

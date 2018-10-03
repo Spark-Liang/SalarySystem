@@ -4,8 +4,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.lzh.salarysystem.entity.Employee;
-import com.lzh.salarysystem.entity.HourlyEmployee;
+import com.lzh.salarysystem.domain.entity.Employee;
+import com.lzh.salarysystem.domain.entity.HourlyEmployee;
 import com.lzh.salarysystem.exception.EmployeeCantFoundById;
 import com.lzh.salarysystem.exception.NotAnHourlyEmloyee;
 import com.lzh.salarysystem.service.Validator;

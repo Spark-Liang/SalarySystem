@@ -20,32 +20,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import com.lzh.salarysystem.annotation.profile.ProfileValue;
 import com.lzh.salarysystem.common.util.DBUnitEnvironment;
 import com.lzh.salarysystem.common.util.DBUnitEnvironmentBuilder;
-import com.lzh.salarysystem.ittest.ClassNameBasedXlsDataSetLoader;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SalarySystemApplication.class)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-    DirtiesContextTestExecutionListener.class,
-    TransactionDbUnitTestExecutionListener.class,
-    DbUnitTestExecutionListener.class})
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
-@DbUnitConfiguration(
-		databaseConnection = {"druidDataSource"}
-		,dataSetLoader = ClassNameBasedXlsDataSetLoader.class)
 @ActiveProfiles(ProfileValue.ITTEST)
 public class SalarySystemITBaseTest implements ApplicationContextAware{
 

@@ -1,4 +1,4 @@
-package com.lzh.salarysystem.entity;
+package com.lzh.salarysystem.domain.entity;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;

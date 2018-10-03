@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
-import com.lzh.salarysystem.entity.Employee;
-import com.lzh.salarysystem.entity.HourlyEmployee;
+import com.lzh.salarysystem.domain.entity.Employee;
+import com.lzh.salarysystem.domain.entity.HourlyEmployee;
 import com.lzh.salarysystem.exception.HourlyRateNotAPositiveNumber;
 
 public class EmployeeServiceTest_addEmployeeTest_testAddHourlyEmployee extends EmployeeServiceTest_addEmployeeTest{

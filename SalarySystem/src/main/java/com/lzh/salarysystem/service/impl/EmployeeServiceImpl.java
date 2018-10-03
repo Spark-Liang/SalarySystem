@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lzh.salarysystem.common.util.ValidatorHelper;
-import com.lzh.salarysystem.entity.Employee;
+import com.lzh.salarysystem.domain.entity.Employee;
 import com.lzh.salarysystem.exception.EmployeeCantFoundById;
 import com.lzh.salarysystem.repository.EmployeeRepository;
 import com.lzh.salarysystem.service.EmployeeService;

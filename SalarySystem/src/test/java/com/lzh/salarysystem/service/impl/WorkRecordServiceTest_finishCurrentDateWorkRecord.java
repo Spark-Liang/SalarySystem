@@ -22,11 +22,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.lzh.salarysystem.entity.HourlyEmployee;
-import com.lzh.salarysystem.entity.TimeCard;
-import com.lzh.salarysystem.entity.WorkRecord;
-import com.lzh.salarysystem.entity.WorkRecordHist;
-import com.lzh.salarysystem.entity.WorkRecordInfo;
+import com.lzh.salarysystem.domain.entity.HourlyEmployee;
+import com.lzh.salarysystem.domain.entity.TimeCard;
+import com.lzh.salarysystem.domain.entity.WorkRecord;
+import com.lzh.salarysystem.domain.entity.WorkRecordHist;
+import com.lzh.salarysystem.domain.valueobject.WorkRecordInfo;
 import com.lzh.salarysystem.repository.TimeCardRepository;
 import com.lzh.salarysystem.repository.WorkRecordHistRepository;
 import com.lzh.salarysystem.repository.WorkRecordRepository;

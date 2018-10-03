@@ -12,12 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lzh.salarysystem.common.util.ValidatorHelper;
-import com.lzh.salarysystem.entity.Employee;
-import com.lzh.salarysystem.entity.HourlyEmployee;
-import com.lzh.salarysystem.entity.TimeCard;
-import com.lzh.salarysystem.entity.WorkRecord;
-import com.lzh.salarysystem.entity.WorkRecordHist;
-import com.lzh.salarysystem.entity.WorkRecordInfo;
+import com.lzh.salarysystem.domain.entity.Employee;
+import com.lzh.salarysystem.domain.entity.HourlyEmployee;
+import com.lzh.salarysystem.domain.entity.TimeCard;
+import com.lzh.salarysystem.domain.entity.WorkRecord;
+import com.lzh.salarysystem.domain.entity.WorkRecordHist;
+import com.lzh.salarysystem.domain.valueobject.WorkRecordInfo;
 import com.lzh.salarysystem.repository.EmployeeRepository;
 import com.lzh.salarysystem.repository.TimeCardRepository;
 import com.lzh.salarysystem.repository.WorkRecordHistRepository;

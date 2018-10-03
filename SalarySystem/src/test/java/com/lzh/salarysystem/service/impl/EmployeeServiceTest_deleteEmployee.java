@@ -10,7 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.lzh.salarysystem.entity.Employee;
+import com.lzh.salarysystem.domain.entity.Employee;
 import com.lzh.salarysystem.exception.EmployeeCantFoundById;
 import com.lzh.salarysystem.repository.EmployeeRepository;
 import com.lzh.salarysystem.service.EmployeeService;

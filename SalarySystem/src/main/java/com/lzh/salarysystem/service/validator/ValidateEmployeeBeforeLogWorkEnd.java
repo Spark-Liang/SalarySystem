@@ -3,8 +3,8 @@ package com.lzh.salarysystem.service.validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.lzh.salarysystem.entity.Employee;
-import com.lzh.salarysystem.entity.WorkRecord;
+import com.lzh.salarysystem.domain.entity.Employee;
+import com.lzh.salarysystem.domain.entity.WorkRecord;
 import com.lzh.salarysystem.exception.HourlyEmloyeeDoesNotWorking;
 import com.lzh.salarysystem.service.Validator;
 import com.lzh.salarysystem.service.WorkRecordService;

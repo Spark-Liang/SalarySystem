@@ -1,6 +1,6 @@
 package com.lzh.salarysystem.service;
 
-import com.lzh.salarysystem.entity.Employee;
+import com.lzh.salarysystem.domain.entity.Employee;
 
 public interface EmployeeService {
 
