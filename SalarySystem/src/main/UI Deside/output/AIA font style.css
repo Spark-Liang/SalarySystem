@@ -1,0 +1,83 @@
+@font-face {
+    font-family: 'AIA Everest Bold';
+    src: url('font/AIAEverest-Bold.svg'),
+         url('font/AIAEverest-Bold.ttf'),
+         url('font/AIAEverest-Bold.woff'),
+         url('font/AIAEverest-Bold.woff2'),
+         url('font/AIAEverest-Bold.eot'),
+         url('font/AIAEverest-Bold.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AIA Everest Bold';
+    src: url('font/AIAEverest-Bold.svg'),
+         url('font/AIAEverest-Bold.ttf'),
+         url('font/AIAEverest-Bold.woff'),
+         url('font/AIAEverest-Bold.woff2'),
+         url('font/AIAEverest-Bold.eot'),
+         url('font/AIAEverest-Bold.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AIA Everest Condensed';
+    src: url('font/AIAEverest-Condensed.svg'),
+         url('font/AIAEverest-Condensed.ttf'),
+         url('font/AIAEverest-Condensed.woff'),
+         url('font/AIAEverest-Condensed.woff2'),
+         url('font/AIAEverest-Condensed.eot'),
+         url('font/AIAEverest-Condensed.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AIA Everest Condensed Medium';
+    src: url('font/AIAEverest-CondensedMedium.svg'),
+         url('font/AIAEverest-CondensedMedium.ttf'),
+         url('font/AIAEverest-CondensedMedium.woff'),
+         url('font/AIAEverest-CondensedMedium.woff2'),
+         url('font/AIAEverest-CondensedMedium.eot'),
+         url('font/AIAEverest-CondensedMedium.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AIA Everest ExtraBold';
+    src: url('font/AIAEverest-ExtraBold.svg'),
+         url('font/AIAEverest-ExtraBold.ttf'),
+         url('font/AIAEverest-ExtraBold.woff'),
+         url('font/AIAEverest-ExtraBold.woff2'),
+         url('font/AIAEverest-ExtraBold.eot'),
+         url('font/AIAEverest-ExtraBold.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AIA Everest Medium';
+    src: url('font/AIAEverest-Medium.svg'),
+         url('font/AIAEverest-Medium.ttf'),
+         url('font/AIAEverest-Medium.woff'),
+         url('font/AIAEverest-Medium.woff2'),
+         url('font/AIAEverest-Medium.eot'),
+         url('font/AIAEverest-Medium.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AIA Everest Regular';
+    src: url('font/AIAEverest-Regular.svg'),
+         url('font/AIAEverest-Regular.ttf'),
+         url('font/AIAEverest-Regular.woff'),
+         url('font/AIAEverest-Regular.woff2'),
+         url('font/AIAEverest-Regular.eot'),
+         url('font/AIAEverest-Regular.otf');
+    font-weight: normal;
+    font-style: normal;
+}

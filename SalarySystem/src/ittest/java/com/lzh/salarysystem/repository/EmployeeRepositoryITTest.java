@@ -9,14 +9,14 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.lzh.salarysystem.SalarySystemITBaseTest;
 import com.lzh.salarysystem.domain.entity.Employee;
 import com.lzh.salarysystem.domain.entity.HourlyEmployee;
 import com.lzh.salarysystem.domain.entity.MonthlyEmployee;
 import com.lzh.salarysystem.domain.entity.SaleEmployee;
+import com.lzh.salarysystem.ittest.environment.DBITTestEnv;
 
 @Component
-public class EmployeeRepositoryITTest extends SalarySystemITBaseTest{
+public class EmployeeRepositoryITTest extends DBITTestEnv{
 	
 	@Autowired
 	private EmployeeRepository employeeRepository;

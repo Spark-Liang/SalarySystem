@@ -89,3 +89,24 @@ DBUnitEnvironment
 多线程 
 变的是 创建相关的参数，不变的是 创建的逻辑
 每个test class 主要是数据摆放的位置与class有关
+
+
+UserEntity
+
+fields : username, password, authority
+	,employee user info : name agent age picture 
+
+add User
+	validate:
+		username not null
+		username name is not duplicate
+		password not null
+	
+
+
+update User:
+	
+delete User
+
+
+

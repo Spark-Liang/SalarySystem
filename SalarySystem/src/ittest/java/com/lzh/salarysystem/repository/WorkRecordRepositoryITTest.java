@@ -14,19 +14,23 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.lzh.salarysystem.SalarySystemITBaseTest;
-import com.lzh.salarysystem.common.util.DBUnitEnvironment;
 import com.lzh.salarysystem.domain.entity.Employee;
 import com.lzh.salarysystem.domain.entity.HourlyEmployee;
 import com.lzh.salarysystem.domain.entity.WorkRecord;
 import com.lzh.salarysystem.domain.valueobject.WorkRecordInfo;
-import com.lzh.salarysystem.ittest.ClassNameBasedXlsDataSetLoader;
+import com.lzh.salarysystem.ittest.common.util.DBUnitEnvironment;
+import com.lzh.salarysystem.ittest.environment.DBITTestEnv;
 
 @Component
-public class WorkRecordRepositoryITTest extends SalarySystemITBaseTest{
+public class WorkRecordRepositoryITTest extends DBITTestEnv{
 
 	@Autowired
 	private WorkRecordRepository SUT;
+	
+	@Override
+	protected String getDataPath() {
+		return "com/lzh/salarysystem/repository/";
+	}
 	
 	@Test
 	@Transactional
@@ -35,8 +39,7 @@ public class WorkRecordRepositoryITTest extends SalarySystemITBaseTest{
 		try {
 			environment = dbUnitEnvironment.get();
 			environment.backupCustom("Employee","WorkRecord");
-			IDataSet initData = new ClassNameBasedXlsDataSetLoader()
-					.loadDataSet(this.getClass(), "TestWorkRecordFindOne.xls");
+			IDataSet initData = loadXlsDataSet("TestWorkRecordFindOne.xls");
 			environment.execute(InsertIdentityOperation.CLEAN_INSERT, initData);
 			Integer empID = 1;
 			

@@ -12,10 +12,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @PropertySource(value = {
-	"classpath:/application.properties",
-	"classpath:/static/DB/database-config-${spring.profiles.active}.properties"
+	"classpath:/application.properties"
+	,"classpath:/static/DB/database-config-${spring.profiles.active}.properties"
+	,"classpath:/static/security/security-config.properties"
 })
-@EntityScan("com.lzh.salarysystem.domain")
+@EntityScan({"com.lzh.salarysystem.domain","com.lzh.salarysystem.infrastructure.persistent.po"})
 @EnableAutoConfiguration(exclude={
 		DataSourceAutoConfiguration.class
 })
